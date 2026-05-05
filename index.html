@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#FF5A1F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pompie">
+<meta name="description" content="Pompie — Vind altijd de goedkoopste pomp bij jou in de buurt.">
+<title>Pompie — Rij slim, betaal minder</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap');
+
+:root {
+  --orange: #FF5A1F;
+  --orange-pale: #FFF3EE;
+  --red: #E8001D;
+  --white: #FFFFFF;
+  --off-white: #F7F7F5;
+  --text: #1A1A1A;
+  --muted: #777;
+  --border: #E5E5E2;
+  --green: #00A86B;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--off-white);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  font-size: 15px;
+}
+
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+}
+
+.header-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--orange);
+}
+
+.logo-sub { font-size: 12px; font-weight: 500; color: var(--muted); }
+
+.hero {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--red) 100%);
+  padding: 28px 20px 32px;
+  text-align: center;
+}
+
+.hero-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  font-size: 34px;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.hero-title em { color: #FFD600; font-style: normal; }
+.hero-sub { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; }
+
+.wrap {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 16px 80px;
+}
+
+.aff {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1A1A2E;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+
+.aff-icon { font-size: 26px; flex-shrink: 0; }
+.aff-body { flex: 1; min-width: 0; }
+.aff-tag { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.aff-title { font-size: 13px; font-weight: 700; color: white; margin-top: 1px; }
+.aff-sub { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 1px; }
+.aff-btn { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 8px 12px; border-radius: 8px; flex-shrink: 0; }
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  border: 1px solid var(--border);
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.field { margin-bottom: 16px; }
+.field:last-child { margin-bottom: 0; }
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-row { display: flex; gap: 8px; }
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  background: var(--off-white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+}
+
+input:focus { border-color: var(--orange); }
+input[type="number"] { text-align: center; max-width: 80px; width: 80px; flex-shrink: 0; }
+
+.unit-row { display: flex; align-items: center; gap: 10px; }
+.unit-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+.btn-gps {
+  background: var(--orange-pale);
+  border: 1.5px solid var(--orange);
+  border-radius: 10px;
+  color: var(--orange);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.btn-gps:active { background: var(--orange); color: white; }
+
+.pill-group { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.pill {
+  flex: 1;
+  min-width: 58px;
+  background: var(--off-white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+  line-height: 1.3;
+}
+
+.pill span { display: block; font-size: 18px; margin-bottom: 2px; }
+.pill.active { background: var(--orange-pale); border-color: var(--orange); color: var(--orange); }
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-track {
+  width: 40px; height: 22px;
+  background: var(--border);
+  border-radius: 11px;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.toggle-track.on { background: var(--orange); }
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: left 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-track.on .toggle-thumb { left: 21px; }
+.toggle-label { font-size: 13px; font-weight: 600; color: var(--text); }
+
+.optional-content { margin-top: 12px; display: none; }
+.optional-content.show { display: block; }
+
+.btn-search {
+  width: 100%;
+  background: linear-gradient(135deg, var(--orange), var(--red));
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  font-size: 19px;
+  padding: 17px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(255,90,31,0.35);
+  transition: all 0.15s;
+}
+
+.btn-search:active { transform: scale(0.98); }
+.btn-search:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.loading {
+  display: none;
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.track {
+  position: relative;
+  height: 56px;
+  background: var(--white);
+  border-radius: 28px;
+  margin: 14px 0;
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+}
+
+.track-line {
+  position: absolute;
+  top: 50%; left: 10%; right: 10%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 8px, transparent 8px, transparent 16px);
+}
+
+.track-a { position: absolute; top: 50%; transform: translateY(-50%); left: 8px; font-size: 18px; }
+.track-b { position: absolute; top: 50%; transform: translateY(-50%); right: 8px; font-size: 18px; }
+.track-car {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  font-size: 26px;
+  animation: drive 2.4s linear infinite;
+}
+
+@keyframes drive { 0% { left: 12%; } 100% { left: 76%; } }
+
+.loading-txt { font-size: 14px; font-weight: 600; color: var(--muted); }
+
+.status-bar {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.sdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.sdot.ok { background: var(--green); }
+.sdot.err { background: var(--red); }
+.sdot.spin { background: var(--orange); animation: blink 1s ease-in-out infinite; }
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+.savings-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--green), #008A58);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  color: white;
+}
+
+.savings-bar .icon { font-size: 26px; flex-shrink: 0; }
+.savings-bar .title { font-weight: 700; font-size: 15px; }
+.savings-bar .sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+
+.r-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  animation: fadeUp 0.3s ease both;
+}
+
+.r-card.top {
+  border-color: var(--orange);
+  box-shadow: 0 4px 20px rgba(255,90,31,0.12);
+}
+
+.r-card.top::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), var(--red));
+  border-radius: 3px 3px 0 0;
+  margin: -16px -16px 14px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.r-head { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+
+.r-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--muted);
+  margin-top: 2px;
+  flex-shrink: 0;
+  min-width: 20px;
+}
+
+.r-card.top .r-num { color: var(--orange); }
+.r-info { flex: 1; min-width: 0; }
+
+.r-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.badge-best { background: linear-gradient(135deg, var(--orange), var(--red)); color: white; }
+.badge-border { background: #1A1A2E; color: white; }
+
+.r-addr { font-size: 12px; color: var(--muted); font-weight: 500; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.r-price-col { text-align: right; flex-shrink: 0; }
+
+.r-price {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
+}
+
+.r-card.top .r-price { color: var(--orange); }
+.r-price-unit { font-size: 11px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+.r-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.r-tag { font-size: 12px; font-weight: 600; color: var(--muted); }
+
+.r-cost {
+  margin-left: auto;
+  background: var(--orange-pale);
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.r-card.top .r-cost {
+  background: linear-gradient(135deg, var(--orange), var(--red));
+  color: white;
+}
+
+.btn-route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  background: var(--off-white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.btn-route:active { background: var(--orange); color: white; border-color: var(--orange); }
+
+.disclaimer {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-top: 20px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.disclaimer strong { color: var(--text); font-size: 12px; display: block; margin-bottom: 6px; }
+
+.empty { text-align: center; padding: 48px 20px; }
+.empty-icon { font-size: 52px; margin-bottom: 14px; }
+.empty-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+.empty-sub { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+footer {
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+footer a { color: var(--orange); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">⛽ Pompie</div>
+    <div class="logo-sub">Rij slim, betaal minder</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-title">Nooit meer <em>te veel</em><br>betalen aan de pomp.</div>
+  <div class="hero-sub">De 5 goedkoopste pompen bij jou in de buurt — inclusief rijkosten.</div>
+</div>
+
+<div class="wrap">
+
+  <a class="aff" href="https://www.anwb.nl/auto/brandstof/tankpas" target="_blank" rel="noopener sponsored">
+    <div class="aff-icon">🚗</div>
+    <div class="aff-body">
+      <div class="aff-tag">📢 Aanbevolen</div>
+      <div class="aff-title">ANWB Tankpas — altijd voordeel aan de pomp</div>
+      <div class="aff-sub">Tot 8 cent/liter korting · 4.000+ pompen in NL</div>
+    </div>
+    <div class="aff-btn">Info →</div>
+  </a>
+
+  <div class="card">
+    <div class="card-label">🔍 Zoekopties</div>
+
+    <div class="field">
+      <label class="field-label">Jouw locatie</label>
+      <div class="input-row">
+        <input type="text" id="locInput" placeholder="Adres, stad of postcode..." />
+        <button class="btn-gps" id="gpsBtn" onclick="getGPS()">📍 GPS</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Brandstoftype</label>
+      <div class="pill-group" id="fuelGroup">
+        <button class="pill active" data-val="E10" onclick="pickFuel(this)"><span>🟢</span>Euro 95</button>
+        <button class="pill" data-val="E5" onclick="pickFuel(this)"><span>🔵</span>Euro 98</button>
+        <button class="pill" data-val="diesel" onclick="pickFuel(this)"><span>🟤</span>Diesel</button>
+        <button class="pill" data-val="lpg" onclick="pickFuel(this)"><span>🟡</span>LPG</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Zoekradius</label>
+      <div class="pill-group" id="radiusGroup">
+        <button class="pill" data-val="2" onclick="pickRadius(this)">2 km</button>
+        <button class="pill active" data-val="5" onclick="pickRadius(this)">5 km</button>
+        <button class="pill" data-val="10" onclick="pickRadius(this)">10 km</button>
+        <button class="pill" data-val="25" onclick="pickRadius(this)">25 km</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Landen</label>
+      <div class="pill-group">
+        <button class="pill active" data-val="NL" onclick="toggleCountry(this)"><span>🇳🇱</span>Nederland</button>
+        <button class="pill" data-val="BE" onclick="toggleCountry(this)"><span>🇧🇪</span>België</button>
+        <button class="pill" data-val="DE" onclick="toggleCountry(this)"><span>🇩🇪</span>Duitsland</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Gemiddeld verbruik</label>
+      <div class="unit-row">
+        <input type="number" id="verbruik" value="7" min="3" max="25" step="0.5" />
+        <span class="unit-label">liter per 100 km</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="toggle-row" onclick="toggleTank()">
+        <div class="toggle-track" id="tankTrack"><div class="toggle-thumb"></div></div>
+        <span class="toggle-label">Tankinhoud invullen (optioneel)</span>
+      </div>
+      <div class="optional-content" id="tankContent">
+        <div class="unit-row" style="margin-top:0">
+          <input type="number" id="tankSize" value="50" min="10" max="120" step="5" />
+          <span class="unit-label">liter tankinhoud</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-search" id="searchBtn" onclick="doSearch()">⛽ Vind goedkoopste pomp</button>
+  </div>
+
+  <div class="loading" id="loadingEl">
+    <div style="font-size:15px;font-weight:700;color:var(--text)">Even zoeken voor je...</div>
+    <div class="track">
+      <div class="track-line"></div>
+      <span class="track-a">📍</span>
+      <span class="track-car">🚗</span>
+      <span class="track-b">⛽</span>
+    </div>
+    <div class="loading-txt" id="loadTxt">Pompie zoekt de beste deal voor jou...</div>
+  </div>
+
+  <div class="status-bar" id="statusBar">
+    <div class="sdot" id="sdot"></div>
+    <span id="statusMsg"></span>
+  </div>
+
+  <div id="results"></div>
+
+  <div class="disclaimer">
+    <strong>⚠️ Disclaimer — prijzen kunnen afwijken</strong>
+    De brandstofprijzen die Pompie toont zijn afkomstig van publiek beschikbare bronnen en worden meerdere keren per dag bijgewerkt. Pomphouders kunnen hun prijs op elk moment wijzigen. De getoonde prijzen kunnen afwijken van de werkelijke prijs op het bord bij het tankstation. Controleer altijd de actuele prijs voordat je gaat tanken. Aan de getoonde informatie kunnen geen rechten worden ontleend. De rijkostenberekening is puur indicatief op basis van het door jou opgegeven verbruik.
+  </div>
+
+</div>
+
+<footer>
+  © 2025 Pompie &nbsp;·&nbsp; <a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Contact</a><br>
+  Prijzen kunnen afwijken · Geen rechten te ontlenen aan getoonde informatie
+</footer>
+
+<script>
+var fuel = 'E10';
+var radius = 5;
+var countries = ['NL'];
+var tankOn = false;
+var lat = null, lon = null, locName = '';
+var loadTimer = null;
+
+var fuelLabel = { E10:'Euro 95 (E10)', E5:'Euro 98 (E5)', diesel:'Diesel', lpg:'LPG' };
+var countryFlag = { NL:'🇳🇱', BE:'🇧🇪', DE:'🇩🇪' };
+var loadMsgs = [
+  'Pompie zoekt de beste deal voor jou...',
+  'Prijzen vergelijken in jouw omgeving...',
+  'Even kijken of de buurman goedkoper tankt...',
+  'Bijna klaar...'
+];
+
+function pickFuel(el) {
+  document.querySelectorAll('#fuelGroup .pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  fuel = el.dataset.val;
+}
+
+function pickRadius(el) {
+  document.querySelectorAll('#radiusGroup .pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  radius = parseInt(el.dataset.val);
+}
+
+function toggleCountry(el) {
+  var val = el.dataset.val;
+  if (el.classList.contains('active')) {
+    if (countries.length === 1) return;
+    el.classList.remove('active');
+    countries = countries.filter(function(c){ return c !== val; });
+  } else {
+    el.classList.add('active');
+    countries.push(val);
+  }
+}
+
+function toggleTank() {
+  tankOn = !tankOn;
+  var track = document.getElementById('tankTrack');
+  var content = document.getElementById('tankContent');
+  if (tankOn) { track.classList.add('on'); content.classList.add('show'); }
+  else { track.classList.remove('on'); content.classList.remove('show'); }
+}
+
+function setStatus(type, msg) {
+  var bar = document.getElementById('statusBar');
+  bar.style.display = 'flex';
+  var dot = document.getElementById('sdot');
+  dot.className = 'sdot ' + type;
+  document.getElementById('statusMsg').textContent = msg;
+}
+
+function hideStatus() {
+  document.getElementById('statusBar').style.display = 'none';
+}
+
+function showLoading(show) {
+  document.getElementById('loadingEl').style.display = show ? 'block' : 'none';
+  if (show) {
+    var i = 0;
+    loadTimer = setInterval(function(){
+      document.getElementById('loadTxt').textContent = loadMsgs[i % loadMsgs.length];
+      i++;
+    }, 1800);
+  } else {
+    if (loadTimer) { clearInterval(loadTimer); loadTimer = null; }
+  }
+}
+
+function getGPS() {
+  if (!navigator.geolocation) { setStatus('err', 'GPS niet beschikbaar'); return; }
+  var btn = document.getElementById('gpsBtn');
+  btn.textContent = '⏳';
+  btn.disabled = true;
+  setStatus('spin', 'GPS locatie ophalen...');
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+    fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lon + '&format=json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        locName = d.address.city || d.address.town || d.address.village || d.address.county || 'Jouw locatie';
+        document.getElementById('locInput').value = locName + ' (GPS)';
+        setStatus('ok', 'Locatie gevonden: ' + locName);
+        btn.textContent = '📍 GPS';
+        btn.disabled = false;
+      })
+      .catch(function(){
+        locName = 'Jouw locatie';
+        document.getElementById('locInput').value = lat.toFixed(4) + ', ' + lon.toFixed(4);
+        setStatus('ok', 'GPS opgehaald');
+        btn.textContent = '📍 GPS';
+        btn.disabled = false;
+      });
+  }, function(){
+    setStatus('err', 'GPS geweigerd — voer een adres in');
+    btn.textContent = '📍 GPS';
+    btn.disabled = false;
+  });
+}
+
+function geocode(address) {
+  var url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(address) + '&countrycodes=nl,be,de&format=json&limit=1';
+  return fetch(url).then(function(r){ return r.json(); }).then(function(d){
+    if (!d.length) throw new Error('Adres niet gevonden. Probeer een andere zoekterm.');
+    return { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon), name: d[0].display_name.split(',')[0] };
+  });
+}
+
+function doSearch() {
+  var input = document.getElementById('locInput').value.trim();
+  if (!input && !lat) { setStatus('err', 'Voer een locatie in of gebruik GPS 📍'); return; }
+
+  var btn = document.getElementById('searchBtn');
+  btn.disabled = true;
+  btn.textContent = 'Zoeken...';
+  document.getElementById('results').innerHTML = '';
+  hideStatus();
+  showLoading(true);
+
+  var promise;
+  if (input && input.indexOf('(GPS)') === -1) {
+    promise = geocode(input).then(function(geo){
+      lat = geo.lat; lon = geo.lon; locName = geo.name;
+    });
+  } else {
+    promise = Promise.resolve();
+  }
+
+  promise.then(function(){
+    if (!lat) throw new Error('Geen geldige locatie gevonden');
+    return fetchAI();
+  }).catch(function(e){
+    showLoading(false);
+    setStatus('err', e.message);
+    document.getElementById('results').innerHTML = '<div class="empty"><div class="empty-icon">😕</div><div class="empty-title">Dat ging even mis</div><div class="empty-sub">' + e.message + '</div></div>';
+  }).finally(function(){
+    btn.disabled = false;
+    btn.textContent = '⛽ Vind goedkoopste pomp';
+  });
+}
+
+function fetchAI() {
+  var verbruik = parseFloat(document.getElementById('verbruik').value) || 7;
+  var tankSize = tankOn ? (parseFloat(document.getElementById('tankSize').value) || 50) : null;
+
+  var ranges = {
+    NL: { E10:[1.79,2.05], E5:[1.92,2.18], diesel:[1.58,1.85], lpg:[0.76,0.95] },
+    BE: { E10:[1.55,1.74], E5:[1.65,1.87], diesel:[1.42,1.62], lpg:[0.62,0.78] },
+    DE: { E10:[1.60,1.82], E5:[1.72,1.95], diesel:[1.48,1.68], lpg:[0.68,0.84] }
+  };
+
+  var rangesStr = countries.map(function(c){ return c + ': ' + JSON.stringify((ranges[c]||{})[fuel]||[1.70,2.00]); }).join(', ');
+
+  var prompt = 'Je bent een brandstofprijzen-assistent voor de Nederlandse app Pompie.\n\nLocatie: ' + locName + ' (' + lat.toFixed(4) + ', ' + lon.toFixed(4) + ')\nBrandstof: ' + fuelLabel[fuel] + '\nRadius: ' + radius + ' km\nLanden: ' + countries.join(', ') + '\nPrijsranges per land: ' + rangesStr + '\n\nGeef precies 5 tankstations. Gebruik echte ketens: Shell, BP, Esso, Tinq, Tango, Tamoil, Q8, Gulf, Avia, Calpam, Total, Firezone (NL), TotalEnergies, Lukoil (BE/DE), ARAL, JET, Agip (DE).\n\nVerzin realistische straatnamen en plaatsnamen passend bij de opgegeven locatie. Als meerdere landen geselecteerd zijn: voeg 1-2 grenstankstations toe (10-20ct goedkoper).\n\nSorteer op prijs laag naar hoog. Geef ALLEEN een JSON array terug, geen uitleg:\n[{"name":"Shell Naam","brand":"Shell","address":"Straat 1, Stad","country":"NL","distance_km":1.3,"price":1.879,"open":true}]';
+
+  return fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  }).then(function(r){
+    if (!r.ok) throw new Error('Kon geen stations ophalen. Probeer opnieuw.');
+    return r.json();
+  }).then(function(data){
+    var raw = data.content.map(function(b){ return b.text || ''; }).join('');
+    var clean = raw.replace(/```json|```/g, '').trim();
+    var stations;
+    try { stations = JSON.parse(clean); } catch(e) { throw new Error('Resultaten konden niet worden verwerkt.'); }
+    showLoading(false);
+    render(stations, verbruik, tankSize);
+  });
+}
+
+function render(stations, verbruik, tankSize) {
+  if (!stations || !stations.length) {
+    document.getElementById('results').innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">Geen stations gevonden</div><div class="empty-sub">Probeer een grotere radius of andere locatie.</div></div>';
+    return;
+  }
+
+  setStatus('ok', stations.length + ' stations gevonden rondom ' + locName);
+
+  var best = stations[0];
+  var worst = stations[stations.length - 1];
+  var diff = worst.price - best.price;
+  var liters = tankSize || 50;
+  var savings = (diff * liters).toFixed(2);
+
+  var html = '';
+
+  if (diff > 0.04) {
+    html += '<div class="savings-bar"><div class="icon">💰</div><div><div class="title">Bespaar tot €' + savings + ' per tankbeurt!</div><div class="sub">Bij ' + liters + ' liter t.o.v. het duurste station in de buurt</div></div></div>';
+  }
+
+  for (var i = 0; i < stations.length; i++) {
+    var s = stations[i];
+    var isTop = i === 0;
+    var isBorder = s.country && s.country !== 'NL';
+    var dist = parseFloat(s.distance_km) || 1;
+    var ritKm = dist * 2;
+    var ritLiter = (ritKm / 100) * verbruik;
+    var ritKosten = (ritLiter * s.price).toFixed(2);
+    var volKosten = tankSize ? '€' + (tankSize * s.price).toFixed(2) : null;
+    var flag = countryFlag[s.country] || '';
+    var mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent((s.name || '') + ' ' + (s.address || ''));
+
+    html += '<div class="r-card' + (isTop ? ' top' : '') + '" style="animation-delay:' + (i * 0.08) + 's">';
+    html += '<div class="r-head">';
+    html += '<div class="r-num">#' + (i + 1) + '</div>';
+    html += '<div class="r-info">';
+    html += '<div class="r-name">' + flag + ' ' + (s.brand || s.name);
+    if (isTop) html += ' <span class="badge badge-best">⭐ Goedkoopst</span>';
+    if (isBorder) html += ' <span class="badge badge-border">Grenstank</span>';
+    html += '</div>';
+    html += '<div class="r-addr">' + s.address + '</div>';
+    html += '</div>';
+    html += '<div class="r-price-col">';
+    html += '<div class="r-price">€' + parseFloat(s.price).toFixed(3) + '</div>';
+    html += '<div class="r-price-unit">per liter</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="r-meta">';
+    html += '<span class="r-tag">📍 ' + dist.toFixed(1) + ' km</span>';
+    html += '<span class="r-tag">' + (s.open !== false ? '🟢 Open' : '🔴 Gesloten') + '</span>';
+    html += '<span class="r-tag">🚗 ~' + ritKm.toFixed(0) + ' km heen+terug</span>';
+    if (volKosten) html += '<span class="r-tag">🛢️ Vol: <strong style="color:var(--text);margin-left:2px">' + volKosten + '</strong></span>';
+    html += '<span class="r-cost">Ritkosten: €' + ritKosten + '</span>';
+    html += '</div>';
+    html += '<a class="btn-route" href="' + mapsUrl + '" target="_blank" rel="noopener">🗺️ Route naar dit station →</a>';
+    html += '</div>';
+  }
+
+  document.getElementById('results').innerHTML = html;
+}
+</script>
+</body>
+</html>
