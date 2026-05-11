@@ -1,15 +1,18 @@
-return fetch('/api/chat', {
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt: prompt })
-  }).then(function(r){
-    if (!r.ok) throw new Error('Kon geen stations ophalen. Probeer opnieuw.');
-    return r.json();
-  }).then(function(data){
-    var raw = data.content.map(function(b){ return b.text || ''; }).join('');
-    var clean = raw.replace(/```json|```/g, '').trim();
-    var stations;
-    try { stations = JSON.parse(clean); } catch(e) { throw new Error('Resultaten konden niet worden verwerkt.'); }
-    showLoading(false);
-    render(stations, verbruik, tankSize);
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01'
+    },
+    body: JSON.stringify(req.body)
   });
+
+  const data = await response.json();
+  res.status(200).json(data);
+}
